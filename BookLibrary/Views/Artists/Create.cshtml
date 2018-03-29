@@ -1,0 +1,52 @@
+﻿@model BookLibrary.Models.Artist
+
+@{
+    ViewBag.Title = "Add Artist";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.PageImage = "/Content/images/add_artist_user.png";
+}
+
+@using (Html.BeginForm("Create", "Artists", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model=>model.IsGroup, "Is Group", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-lg-10" id="is_group_field">
+                @Html.DropDownListFor(model => model.IsGroup, new SelectList(
+                    new[]
+                    {
+                        new { Value = "", Text = "" },
+                        new { Value = "false", Text = "No" },
+                        new { Value = "true", Text = "Yes" },
+                    },
+                    "Value",
+                    "Text",
+                    Model
+                ), htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Name", new { @class = "control-label col-lg-2"})
+            <div class="col-md-10">
+                @Html.TextBox("Name", null, new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("DisplayImage", "Image", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" id="ArtistDisplayImage" name="ArtistDisplayImage" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                @Html.ActionLink("Cancel", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+

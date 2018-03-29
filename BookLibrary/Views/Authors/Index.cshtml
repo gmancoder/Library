@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BookLibrary.Models.Author>
+
+@{
+    ViewBag.Title = "All Authors";
+    ViewBag.SubTitle = ViewBag.TotalItems + " total authors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.PageImage = "/Content/images/authors.png";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@{ int idx = 0; }
+<div class="row">
+    @foreach (var author in Model)
+    {
+
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/Authors/Details/@author.Id">
+                <img src="@author.Person.DisplayImage" width="150" title="@author.Person.Name" alt="@author.Person.Name" /><br />
+                @author.Person.Name
+            </a>
+        </div>
+        idx += 1;
+        if (idx % 6 == 0)
+        {
+            @:</div><div class="row">
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>

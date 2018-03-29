@@ -1,0 +1,46 @@
+﻿    @model IEnumerable<BookLibrary.Models.ViewModels.MagazineListItemViewModel>
+
+@{
+    ViewBag.Title = "All Magazines";
+    ViewBag.PageImage = "/Content/Images/magazines.png";
+    ViewBag.SubTitle = ViewBag.TotalItems + " total magazines";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@{ int idx = 0; }
+<div class="row">
+    @foreach (var magazine in Model)
+    {
+
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/magazines/Details/@magazine.Magazine.Id">
+                <img src="@magazine.ImageFileName" width="150" title="@magazine.Magazine.Title" alt="@magazine.Magazine.Title" /><br />
+                @magazine.Magazine.Title
+            </a>
+            <br />
+            <span style="color:#999999;">
+                @magazine.Magazine.MagazineIssues.Count() Issues
+            </span>
+        </div>
+        idx += 1;
+        if (idx % 6 == 0)
+        {
+            @:</div><div class="row">
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>

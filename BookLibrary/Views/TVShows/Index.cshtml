@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BookLibrary.Models.TVShow>
+
+@{
+    ViewBag.Title = "All TV Shows";
+    ViewBag.SubTitle = ViewBag.TotalItems + " total";
+    ViewBag.PageImage = "/Content/Images/tv_shows.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@{ int idx = 0; }
+<div class="row">
+    @foreach (var show in Model)
+    {
+
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/TVShows/Details/@show.Id">
+                <img src="~/Content/Images/tvshows/@show.DisplayImage" width="150" title="@show.Title" alt="@show.Title" /><br />
+                @show.Title
+            </a>
+        </div>
+        idx += 1;
+        if (idx % 6 == 0)
+        {
+            @:</div><div class="row">
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>

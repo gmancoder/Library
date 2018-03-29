@@ -1,0 +1,64 @@
+﻿@model BookLibrary.Models.ViewModels.MagazineListItemViewModel
+@using BookLibrary.Models
+@{
+    ViewBag.Title = Model.Magazine.Title;
+    ViewBag.PageImage = Model.ImageFileName;
+    ViewBag.SubTitle = Model.Magazine.MagazineIssues.Count + " issues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+
+    @if (Model.CategoryStreams.Count > 0)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">Categorization</div>
+            <div class="panel-body">
+                @foreach (List<Category> categories in Model.CategoryStreams)
+                {
+                    int cidx = 0;
+                    foreach (Category category in categories)
+                    {
+                        if (cidx > 0)
+                        {
+                            @:<span>&nbsp;>&nbsp;</span>
+                            }
+                        <a href="/Categories/Details/@category.Id">@category.Name</a>
+                        cidx++;
+                    }
+                    @:<br />
+                    }
+            </div>
+        </div>
+    }
+        @{ int idx = 0; }
+    <div class="panel panel-default">
+        <div class="panel-heading">Issues</div>
+        <div class="panel-body">
+            <div class="row">
+                @foreach (var issue in Model.Magazine.MagazineIssues.OrderBy(o => o.ReleaseDate))
+                {
+
+                    <div class="col-md-2" style="text-align:center;">
+                        <a href="@ViewBag.PDFLibraryRoot/pdfs/@issue.PdfId" target="_blank">
+                            <img src="@issue.ImageFileName" width="150" title="@issue.PdfTitle" alt="@issue.PdfTitle" /><br />
+                            @issue.ReleaseDateText
+                        </a>
+                        <br />
+                        <span style="color:#999999;">
+                            <a href="javascript:;" onclick="EditMagazineIssue('@issue.Id');">Edit</a>
+                        </span>
+                    </div>
+                    idx += 1;
+                    if (idx % 6 == 0)
+                    {
+                        @: </div><div class="row">
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+

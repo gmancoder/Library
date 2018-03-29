@@ -1,0 +1,147 @@
+﻿@model BookLibrary.Models.ViewModels.RecentAlbumViewModel
+@using BookLibrary.Models
+@{
+    ViewBag.Title = "Recently Added Albums";
+    ViewBag.SubTitle = ViewBag.TotalItems + " Total Albums";
+    ViewBag.PageImage = "/Content/Images/folder_music_icon.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@if(Model.Today.Count() > 0)
+{
+    <h3><strong>Today</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var album in Model.Today)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Albums/Details/@album.Id">
+                    <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                    @album.Title<
+                </a>
+                <br />
+                <span style="color:#999999;">By <a href="/Artists/Details/@album.ArtistId">@album.Artist.Name</a></span>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.Yesterday.Count() > 0)
+{
+    <h3><strong>Yesterday</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var album in Model.Yesterday)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Albums/Details/@album.Id">
+                    <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                    @album.Title
+                </a>
+                <br />
+                <span style="color:#999999;">By <a href="/Artists/Details/@album.ArtistId">@album.Artist.Name</a></span>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.ThisWeek.Count() > 0)
+{
+    <h3><strong>This Week</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var album in Model.ThisWeek)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Albums/Details/@album.Id">
+                    <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                    @album.Title
+                </a>
+                <br />
+                <span style="color:#999999;">By <a href="/Artists/Details/@album.ArtistId">@album.Artist.Name</a></span>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.LastWeek.Count() > 0)
+{
+    <h3><strong>Last Week</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var album in Model.LastWeek)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Albums/Details/@album.Id">
+                    <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                    @album.Title
+                </a>
+                <br />
+                <span style="color:#999999;">By <a href="/Artists/Details/@album.ArtistId">@album.Artist.Name</a></span>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if(Model.Older.Count() > 0)
+{
+    foreach(KeyValuePair<int, List<Album>> year in Model.Older)
+    {
+        <h3><strong>@year.Key</strong></h3>
+        int idx = 0;
+        <div class="row">
+            @foreach (var album in year.Value)
+            {
+
+                <div class="col-md-2" style="text-align:center;">
+                    <a href="/Albums/Details/@album.Id">
+                        <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                        @album.Title
+                    </a>
+                    <br />
+                    <span style="color:#999999;">By <a href="/Artists/Details/@album.ArtistId">@album.Artist.Name</a></span>
+                </div>
+                idx += 1;
+                if (idx % 6 == 0)
+                {
+                    @:</div><div class="row">
+                }
+            }
+        </div>
+    }
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>

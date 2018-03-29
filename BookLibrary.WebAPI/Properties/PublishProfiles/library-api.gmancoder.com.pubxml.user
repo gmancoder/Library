@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <_PublishTargetUrl>C:\HostingSpaces\gbrewer\library-api.gmancoder.com\wwwroot</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="bin/af/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:00</publishTime>
+    </File>
+    <File Include="bin/ar/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:02</publishTime>
+    </File>
+    <File Include="bin/bg/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:02</publishTime>
+    </File>
+    <File Include="bin/bn-BD/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:06</publishTime>
+    </File>
+    <File Include="bin/BookLibrary.Functions.Core.dll">
+      <publishTime>03/23/2018 11:29:15</publishTime>
+    </File>
+    <File Include="bin/BookLibrary.Functions.dll">
+      <publishTime>03/23/2018 12:16:39</publishTime>
+    </File>
+    <File Include="bin/BookLibrary.Models.dll">
+      <publishTime>02/14/2018 20:09:31</publishTime>
+    </File>
+    <File Include="bin/BookLibrary.Services.dll">
+      <publishTime>03/23/2018 11:29:15</publishTime>
+    </File>
+    <File Include="bin/BookLibrary.WebAPI.dll">
+      <publishTime>03/23/2018 12:17:40</publishTime>
+    </File>
+    <File Include="bin/cs/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:06</publishTime>
+    </File>
+    <File Include="bin/da/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:08</publishTime>
+    </File>
+    <File Include="bin/de/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:10</publishTime>
+    </File>
+    <File Include="bin/el/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:10</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.dll">
+      <publishTime>02/25/2014 01:34:42</publishTime>
+    </File>
+    <File Include="bin/EntityFramework.SqlServer.dll">
+      <publishTime>02/25/2014 01:34:42</publishTime>
+    </File>
+    <File Include="bin/es/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:12</publishTime>
+    </File>
+    <File Include="bin/fa/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:14</publishTime>
+    </File>
+    <File Include="bin/fi-FI/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:14</publishTime>
+    </File>
+    <File Include="bin/fr-BE/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:16</publishTime>
+    </File>
+    <File Include="bin/fr/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:18</publishTime>
+    </File>
+    <File Include="bin/he/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:18</publishTime>
+    </File>
+    <File Include="bin/hr/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:20</publishTime>
+    </File>
+    <File Include="bin/HtmlAgilityPack.dll">
+      <publishTime>01/09/2018 13:47:28</publishTime>
+    </File>
+    <File Include="bin/hu/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:22</publishTime>
+    </File>
+    <File Include="bin/Humanizer.dll">
+      <publishTime>05/04/2017 23:33:58</publishTime>
+    </File>
+    <File Include="bin/id/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:24</publishTime>
+    </File>
+    <File Include="bin/it/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:24</publishTime>
+    </File>
+    <File Include="bin/ja/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:26</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>03/08/2017 19:26:22</publishTime>
+    </File>
+    <File Include="bin/lv/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:28</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
+      <publishTime>04/03/2015 18:07:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.EntityFramework.dll">
+      <publishTime>04/03/2015 18:07:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.AspNet.Identity.Owin.dll">
+      <publishTime>04/03/2015 18:07:22</publishTime>
+    </File>
+    <File Include="bin/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll">
+      <publishTime>06/15/2015 03:06:24</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Cors.dll">
+      <publishTime>04/05/2017 11:53:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>04/05/2017 11:53:36</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>04/05/2017 11:53:40</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>01/13/2014 16:11:10</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>04/05/2017 11:53:42</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.OAuth.dll">
+      <publishTime>04/05/2017 11:53:46</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>04/23/2012 16:23:58</publishTime>
+    </File>
+    <File Include="bin/nb-NO/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:28</publishTime>
+    </File>
+    <File Include="bin/nb/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:30</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>06/18/2017 13:57:10</publishTime>
+    </File>
+    <File Include="bin/nl/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:32</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>11/27/2012 13:00:52</publishTime>
+    </File>
+    <File Include="bin/pl/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:34</publishTime>
+    </File>
+    <File Include="bin/pt/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:36</publishTime>
+    </File>
+    <File Include="bin/ro/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:36</publishTime>
+    </File>
+    <File Include="bin/roslyn/csc.exe">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.Build.Tasks.CodeAnalysis.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.dll">
+      <publishTime>06/18/2015 21:19:44</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CodeAnalysis.VisualBasic.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.CSharp.Core.targets">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/Microsoft.VisualBasic.Core.targets">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Collections.Immutable.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/System.Reflection.Metadata.dll">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/vbc.exe">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/roslyn/VBCSCompiler.exe.config">
+      <publishTime>06/18/2015 21:19:46</publishTime>
+    </File>
+    <File Include="bin/ru/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:38</publishTime>
+    </File>
+    <File Include="bin/sk/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:40</publishTime>
+    </File>
+    <File Include="bin/sl/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:40</publishTime>
+    </File>
+    <File Include="bin/sr-Latn/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:42</publishTime>
+    </File>
+    <File Include="bin/sr/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:44</publishTime>
+    </File>
+    <File Include="bin/sv/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:46</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>01/28/2015 04:02:42</publishTime>
+    </File>
+    <File Include="bin/System.Web.Cors.dll">
+      <publishTime>10/01/2013 20:54:22</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>01/28/2015 04:02:54</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.Owin.dll">
+      <publishTime>01/28/2015 04:03:16</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>01/28/2015 04:03:46</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>01/28/2015 04:02:18</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>01/28/2015 04:02:32</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>01/28/2015 04:04:30</publishTime>
+    </File>
+    <File Include="bin/tr/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:46</publishTime>
+    </File>
+    <File Include="bin/uk/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:48</publishTime>
+    </File>
+    <File Include="bin/uz-Cyrl-UZ/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:50</publishTime>
+    </File>
+    <File Include="bin/uz-Latn-UZ/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:50</publishTime>
+    </File>
+    <File Include="bin/vi/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:52</publishTime>
+    </File>
+    <File Include="bin/zh-CN/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hans/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:54</publishTime>
+    </File>
+    <File Include="bin/zh-Hant/Humanizer.resources.dll">
+      <publishTime>05/04/2017 23:34:56</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>01/26/2018 09:10:43</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>01/26/2018 09:08:14</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>02/14/2018 21:54:19</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

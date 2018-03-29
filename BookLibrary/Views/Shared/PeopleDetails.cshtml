@@ -1,0 +1,136 @@
+﻿@model BookLibrary.Models.ViewModels.PersonViewModel
+    @using BookLibrary.Models.ViewModels
+@{
+    ViewBag.Title = Model.Person.Name;
+    ViewBag.PageImage = Model.Person.DisplayImage;
+    ViewBag.Details = Model.Details;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.AssociatedWith != null)
+{
+    <a id="associated" name="associated"></a>
+    <h4>Group @Model.Person.Name Is Associated With</h4>
+    <div class="row">
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/Artists/Details/@Model.AssociatedWith.Id">
+                <img src="@Model.AssociatedWith.Image" width="150" title="@Model.AssociatedWith.Name" alt="@Model.AssociatedWith.Name" /><br />
+                @Model.AssociatedWith.Name
+            </a>
+        </div>
+    </div>
+}
+
+@if (Model.Books.Count() > 0)
+{
+    <a id="books" name="books"></a>
+    <h4>Books By @Model.Person.Name</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (LibraryObject book in Model.Books)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Books/Details/@book.Id">
+                    <img src="@book.Image" width="150" title="@book.Name" alt="@book.Name" /><br />
+                    @book.Name
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+
+@if (Model.Albums.Count() > 0)
+{
+    <a id="albums" name="albums"></a>
+    <h4>Albums By @Model.Person.Name</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (LibraryObject album in Model.Albums)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Albums/Details/@album.Id">
+                    <img src="@album.Image" width="150" title="@album.Name" alt="@album.Name" /><br />
+                    @album.Name
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.Tracks.Count() > 0)
+{
+    <a id="tracks" name="tracks"></a>
+    <h4>Tracks By @Model.Person.Name on Other Albums</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (LibraryObject track in Model.Tracks)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Tracks/Details/@track.Id">
+                    <img src="@track.Image" width="150" title="@track.Name" alt="@track.Name" /><br />
+                    @track.Name
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.Movies.Count() > 0)
+{
+    <a id="movies" name="movies"></a>
+    <h4>Movies Starring @Model.Person.Name</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (LibraryObject movie in Model.Movies)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Movies/Details/@movie.Id">
+                    <img src="@movie.Image" width="150" title="@movie.Name" alt="@movie.Name" /><br />
+                    @movie.Name
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.TVShows.Count() > 0)
+{
+    <a id="tvshows" name="tvshows"></a>
+    <h4>TV Shows Starring @Model.Person.Name</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (LibraryObject tvShow in Model.TVShows)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/TVShows/Details/@tvShow.Id">
+                    <img src="@tvShow.Image" width="150" title="@tvShow.Name" alt="@tvShow.Name" /><br />
+                    @tvShow.Name
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+
+

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BookLibrary.Models.Movie>
+
+@{
+    ViewBag.Title = "All Movies";
+    ViewBag.SubTitle = ViewBag.TotalItems + " total";
+    ViewBag.PageImage = "/Content/Images/all_movies.png"; 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@{ int idx = 0; }
+<div class="row">
+    @foreach (var movie in Model)
+    {
+
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/Movies/Details/@movie.Id">
+                <img src="~/Content/Images/movies/@movie.ImageFileName" width="150" title="@movie.Title" alt="@movie.Title" /><br />
+                @movie.Title
+            </a>
+        </div>
+        idx += 1;
+        if (idx % 6 == 0)
+        {
+            @:</div><div class="row">
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>

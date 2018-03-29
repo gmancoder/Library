@@ -1,0 +1,39 @@
+﻿@model BookLibrary.Models.ViewModels.TVShowDetailViewModel
+@using BookLibrary.Models
+@{
+    ViewBag.Title = Model.Show.Title;
+    ViewBag.PageImage = "/Content/Images/tvshows/" + Model.Show.DisplayImage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <h4>Starring</h4>
+        @{int idx = 0; }
+        <div class="row">
+            @foreach (TVStar star in Model.Stars)
+            {
+                <div class="col-md-6" style="text-align:center;">
+                    <a href="/TVStars/Details/@star.Id">
+                        <img src="@star.Person.DisplayImage" width="150" title="@star.Person.Name" alt="@star.Person.Name" /><br />
+                        @star.Person.Name
+                    </a>
+                </div>
+                idx += 1;
+                if (idx % 2 == 0)
+                {
+                    @:</div><div class="row">
+                }
+            }
+        </div>
+
+    </div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">About @Model.Show.Title</div>
+            <div class="panel-body">
+                @Model.Show.Overview
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿@model BookLibrary.Models.ViewModels.MovieDetailViewModel
+@using BookLibrary.Models;
+
+@{
+    ViewBag.Title = Model.Object.Title;
+    ViewBag.PageImage = "/Content/Images/movies/" + Model.Object.ImageFileName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <h4>Starring</h4>
+        @{int idx = 0; }
+        <div class="row">
+            @foreach (MovieStar star in Model.Stars)
+            {
+                <div class="col-md-6" style="text-align:center;">
+                    <a href="/MovieStars/Details/@star.Id">
+                        <img src="@star.Person.DisplayImage" width="150" title="@star.Person.Name" alt="@star.Person.Name" /><br />
+                        @star.Person.Name
+                    </a>
+                </div>
+                idx += 1;
+                if (idx % 2 == 0)
+                {
+                    @:</div><div class="row">
+                }
+            }
+        </div>
+
+    </div>
+    <div class="col-lg-8">
+        @if (Model.CategoryStreams.Count > 0)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Categorization</div>
+                <div class="panel-body">
+                    @foreach (List<Category> categories in Model.CategoryStreams)
+                    {
+                        idx = 0;
+                        foreach (Category category in categories)
+                        {
+                            if (idx > 0)
+                            {
+                                @:<span>&nbsp;>&nbsp;</span>
+                            }
+                            <a href="/Categories/Details/@category.Id">@category.Name</a>
+                            idx++;
+                        }
+                        @:<br />
+                    }
+                </div>
+            </div>
+        }
+        @if (Model.SimilarProducts.Count > 0)
+        {
+            <a name="similar" id="similar"></a>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Similar Items</div>
+                            <div class="panel-body">
+                                @{idx = 0; }
+                                <div class="row">
+                                    @foreach (Movie movie in Model.SimilarProducts)
+                                    {
+                                        <div class="col-md-4" style="text-align:center;">
+                                            <a href="/Movies/Details/@movie.Id">
+                                                <img src="~/Content/Images/movies/@movie.ImageFileName" width="150" title="@movie.Title" alt="@movie.Title" /><br />
+                                                @movie.Title
+                                            </a>
+                                        </div>
+                                        idx += 1;
+                                        if (idx % 3 == 0)
+                                        {
+                                            @:</div><div class="row">
+                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                                    }
+        @if (Model.Reviews.Count > 0)
+        {
+            <a name="reviews" id="reviews"></a>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Reviews</div>
+                            <div class="panel-body">
+                                @foreach (BookLibrary.Models.ServiceModels.Amazon.EditorialReview review in Model.Reviews)
+                                {
+                                    <p>@Html.Raw(review.Content)</p>
+                                    <hr width="90%" />
+                                }
+                            </div>
+                        </div>
+        }
+        @if (Model.Offers.TotalOffers > 0)
+        {
+            <a name="shopping" id="shopping"></a>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Shopping Offers <a href="@Model.Offers.MoreOffersUrl" target="_blank">Shop More at Amazon</a></div>
+                            <div class="panel-body">
+                                @{ idx = 0; }
+                                <div class="row">
+                                    @foreach (BookLibrary.Models.ServiceModels.Amazon.Offer offer in Model.Offers.OfferList)
+                                    {
+                                        <div class="col-md-2" style="text-align:center;">
+                                            <a href="@Model.Offers.MoreOffersUrl" target="_blank">
+                                                <img src="~/Content/Images/movies/@Model.Object.ImageFileName" width="75" alt="@Model.Object.Title" /><br />
+                                                @offer.OfferListing.Price.FormattedPrice
+                                            </a>
+                                        </div>
+                                        idx += 1;
+                                        if (idx % 6 == 0)
+                                        {
+                                            @:</div><div class="row">
+                            }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                                    }
+    </div>
+</div>

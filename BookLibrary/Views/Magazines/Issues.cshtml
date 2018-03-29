@@ -1,0 +1,59 @@
+﻿@model BookLibrary.Models.ViewModels.IssueByDateViewModel
+@using BookLibrary.Models.ViewModels;
+@{
+    ViewBag.Title = "Issues By Date";
+    ViewBag.SubTitle = ViewBag.TotalItems + " total magazine issues cataloged";
+    ViewBag.PageImage = "/Content/Images/magazines.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@foreach (KeyValuePair<int, Dictionary<int, IssueByMonthView>> year in Model.Issues.OrderByDescending(o => o.Key))
+{
+    foreach (KeyValuePair<int, IssueByMonthView> month in year.Value.OrderByDescending(o => o.Key))
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">@month.Value.MonthName @year.Key</div>
+            <div class="panel-body">
+                <div class="row">
+                    @{int idx = 0; }
+                    @foreach (var issue in month.Value.Issues)
+                    {
+
+                        <div class="col-md-2" style="text-align:center;">
+                            <a href="@ViewBag.PDFLibraryRoot/pdfs/@issue.PdfId" target="_blank">
+                                <img src="@issue.ImageFileName" width="150" title="@issue.PdfTitle" alt="@issue.PdfTitle" /><br />
+                                @issue.ReleaseDateText
+                            </a>
+                            <br />
+                            <span style="color:#999999;">
+                                <a href="javascript:;" onclick="EditMagazineIssue('@issue.Id');">Edit</a>
+                            </span>
+                        </div>
+                        idx += 1;
+                        if (idx % 6 == 0)
+                        {
+                            @:</div><div class="row">
+                    }
+                    }
+                </div>
+            </div>
+        </div>
+   }
+  }
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+
+

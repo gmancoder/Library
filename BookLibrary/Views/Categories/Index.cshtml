@@ -1,0 +1,40 @@
+﻿@model BookLibrary.Models.ViewModels.CategoryIndexViewModel
+
+@{
+    ViewBag.Title = Model.Category.Name;
+    ViewBag.PageImage = "/Content/Images/categories.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-3">
+        <h3>Categories</h3>
+        <div id="category_tree">
+            @Html.Raw(Model.CategoryHtml);
+        </div>
+    </div>
+    <div class="col-lg-9" style="border-left:solid 1px #999999;">
+        <div id="category_index_loading" style="text-align:center;">
+            <img src="~/Content/Images/ajax-loader.gif" alt="Loading" />
+        </div>
+        <div id="sub_category_listing" style="display:none;">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        PopulateCategoryIndex('@Model.Category.Id');
+        $('#category_tree').on('select_node.jstree', function (e, data) {
+            var href = data.node.a_attr.href
+            location.href = href;
+        }).jstree({
+            "core": {
+                "multiple": false,
+                'themes': { 'dots': false }
+            },
+            'plugins': ['changed', 'html_data'],
+
+        });
+    });
+</script>

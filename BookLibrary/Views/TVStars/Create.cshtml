@@ -1,0 +1,37 @@
+﻿@model BookLibrary.Models.TVStar
+
+@{
+    ViewBag.Title = "Add TV Star";
+    ViewBag.PageImage = "/Content/Images/add_artist_user.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("TVShowId", "TV Show", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TVShowId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessage("TVShowId", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Name", new { @class = "control-label col-lg-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Name", null, new { @class = "form-control", required = "required" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}

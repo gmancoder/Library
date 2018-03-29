@@ -1,0 +1,188 @@
+﻿@model BookLibrary.Models.Book
+@{
+    ViewBag.Title = "Add Book";
+    ViewBag.PageImage = "/Content/Images/add_book.jpg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Create", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EntryType, "Entry Type", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EntryType, new SelectList(
+                    new[]
+                    {
+                        new { Value = "", Text = "" },
+                        new { Value = "Amazon", Text = "Amazon" },
+                        new { Value = "Manual", Text = "Manual" },
+                    },
+                    "Value",
+                    "Text",
+                    Model
+                ), htmlAttributes: new { @class = "form-control", onChange = "EntryTypeChanged();" })
+                @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+
+        <div class="entry_fields" id="amazon_entry_fields" style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ISBN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ISBN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ISBN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="entry_fields" id="manual_entry_fields" style="display:none;">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Authors, "Authors", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Authors, new { htmlAttributes = new { @class = "form-control", value = ViewBag.Author } })
+                    @Html.ValidationMessageFor(model => model.Authors, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.DetailPageUrl, "Detail Page", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DetailPageUrl, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DetailPageUrl, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageFileName, "Cover", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="ImageFileName" id="ImageFileName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryTree" class="control-label col-md-2">Categories:</label>
+                <input type="hidden" name="categoryTree" id="categoryTree" />
+                <div class="col-md-10" id="category_tree">
+
+                    @Html.Raw(ViewBag.CategoryHtml)
+                </div>
+            </div>
+         </div>
+
+        <div class="form-group">
+            @Html.HiddenFor(model => model.PdfId)
+            @Html.LabelFor(model => model.PdfId, "Related PDF", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-9">
+                <input type="text" id="pdf_name" name="pdf_name" class="form-control" readonly />
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-success" onclick="ShowPDFSelection('A'); return false;">Select</button>
+            </div>
+        </div>
+
+            
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a href="/Books" class="btn btn-default">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
+@if (ViewBag.Error != null && ViewBag.Error)
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            EntryTypeChanged();
+        });
+    </script>
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#category_tree').on('changed.jstree', function (e, data) {
+            var i, j, r = [];
+            for (i = 0, j = data.selected.length; i < j; i++) {
+                r.push(data.instance.get_node(data.selected[i]).a_attr.id);
+            }
+            $('#categoryTree').val(r.join(','));
+        }).jstree({
+            "core": {
+                "multiple": true,
+                'themes': { 'dots': false }
+            },
+            'plugins': ['changed', 'html_data'],
+
+        });
+    });
+</script>
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="max-height:90%;overflow:auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="pdfModalLabel">Select PDF</h4>
+            </div>
+            <div class="modal-body">
+                <div id="pdf_modal_loading" style="display:none;">
+                    <img src="~/Content/Images/ajax-loader.gif" alt="Loading" />
+                </div>
+                <div id="pdf_modal_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Get PDFs Starting With:</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="javascript:;" onclick="GetPDFs('A');">A</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('B');">B</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('C');">C</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('D');">D</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('E');">E</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('F');">F</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('G');">G</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('H');">H</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('I');">I</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('J');">J</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('K');">K</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('L');">L</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('M');">M</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('N');">N</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('O');">O</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('P');">P</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('Q');">Q</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('R');">R</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('S');">S</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('T');">T</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('U');">U</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('V');">V</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('W');">W</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('X');">X</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('Y');">Y</a>&nbsp;
+                            <a href="javascript:;" onclick="GetPDFs('Z');">Z</a>&nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="pdfs">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

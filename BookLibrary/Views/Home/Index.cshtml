@@ -1,0 +1,113 @@
+﻿@model BookLibrary.Models.ViewModels.HomeViewModel
+    @using Humanizer
+@using BookLibrary.Models.ViewModels
+@{
+    ViewBag.Title = "Welcome to the GManCoder Library";
+    ViewBag.PageImage = "/Content/Images/home.png";
+}
+@{ int idx = 0; }
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">Latest Additions</div>
+            <div class="panel-body">
+                <div class="row">
+                    @foreach (var obj in Model.LatestAdditions)
+                    {
+                        <div class="col-md-3" style="text-align:center;">
+                            <a href="/@obj.Type.Pluralize()/Details/@obj.Id">
+                                <img src="@obj.Image" width="150" title="@obj.Name" alt="@obj.Name" /><br />
+                                @obj.Name
+                            </a>
+                            @if (obj.ByObjects != null && obj.ByObjects.Count > 0)
+                            {
+                                int bidx = 0;
+                                <br />@obj.ByObjects[0].ByText
+                                foreach (LibraryObjectBy by in obj.ByObjects)
+                                {
+                                    if (bidx > 0)
+                                    {
+                                        if (obj.ByObjects.Count > 2)
+                                        {
+                                        @:,
+                                        }
+                                        @:&nbsp;
+                    if (bidx == obj.ByObjects.Count - 1)
+            {
+                @:and&nbsp;
+                    }
+        }
+                                    <a href="/@by.ByType.Pluralize()/Details/@by.ById">@by.ByValue</a>
+                                    bidx += 1;
+                                }
+                            }
+                            <br />
+                            In <a href="/@obj.Type.Pluralize()/">@obj.Type.Pluralize()</a>
+                        </div>
+                        idx += 1;
+                        if (idx % 4 == 0)
+                        {
+                            @:</div><div class="row">
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Currently Being Read</div>
+                    <div class="panel-body" style="text-align:center;">
+                        @if (Model.Reading != null)
+                        {
+                            <a href="/Books/Details/@Model.Reading.Id">
+                                <img src="@Model.Reading.Image" alt="@Model.Reading.Name" title="@Model.Reading.Name" width="150" /><br />
+                                @Model.Reading.Name
+                            </a>
+                            <br />
+                            <span style="color:#999999;">
+                                @if (Model.Reading.ByObjects.Count() > 0)
+                                {
+                                    int bidx = 0;
+                                    <br />@Model.Reading.ByObjects[0].ByText
+                                    foreach (LibraryObjectBy by in Model.Reading.ByObjects)
+                                    {
+                                        if (bidx > 0)
+                                        {
+                                            if (Model.Reading.ByObjects.Count > 2)
+                                            {
+                                                @:,
+                                        }
+                                            @:&nbsp;
+            if (bidx == Model.Reading.ByObjects.Count - 1)
+                                            {
+                                                @:and
+                    }
+                                        }
+                                        <a href="/@by.ByType.Pluralize()/Details/@by.ById">@by.ByValue</a>
+                                        bidx += 1;
+                                    }
+                                }
+                            </span>
+                                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Track of the Day</div>
+                    <div class="panel-body" style="text-align:center;">
+                        @if (Model.TrackOfTheDay != null)
+                        {
+                            <a href="/Tracks/Details/@Model.TrackOfTheDay.Id">@Model.TrackOfTheDay.Name</a><span>&nbsp;by&nbsp;</span><a href="/Artists/Details/@Model.TrackOfTheDay.ArtistId">@BookLibrary.Functions.Artists.GetArtistName(Model.TrackOfTheDay.ArtistId)</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

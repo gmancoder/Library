@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BookLibrary.Models.TVStar>
+@using Humanizer
+@{
+    ViewBag.Title = "All TV Stars";
+    ViewBag.PageImage = "/Content/Images/users.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@{ int idx = 0; }
+<div class="row">
+    @foreach (var star in Model)
+    {
+
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/TVStars/Details/@star.Id">
+                <img src="@star.Person.DisplayImage" width="150" title="@star.Person.Name" alt="@star.Person.Name" /><br />
+                @star.Person.Name
+            </a>
+            <br />
+            <span style="color:#999999;">@string.Format("Show".ToQuantity(star.TVShows.Count))</span>
+        </div>
+        idx += 1;
+        if (idx % 6 == 0)
+        {
+            @:</div><div class="row">
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+

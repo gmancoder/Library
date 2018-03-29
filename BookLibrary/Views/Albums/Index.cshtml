@@ -1,0 +1,44 @@
+﻿@model IEnumerable<BookLibrary.Models.Album>
+
+@{
+    ViewBag.Title = "All Albums";
+    ViewBag.SubTitle = ViewBag.TotalItems + " Total Albums";
+    ViewBag.PageImage = "/Content/Images/folder_music_icon.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ int idx = 0; }
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach(string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+<div class="row">
+    @foreach (var album in Model)
+    {
+
+        <div class="col-md-2" style="text-align:center;">
+            <a href="/Albums/Details/@album.Id">
+                <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                @album.Title
+            </a>
+            <br />
+            <span style="color:#999999;">By <a href="/Artists/Details/@album.ArtistId">@BookLibrary.Functions.Artists.GetArtistName(album.ArtistId)</a></span>
+        </div>
+        idx += 1;
+        if (idx % 6 == 0)
+        {
+            @:</div><div class="row">
+        }
+    }
+</div>
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>

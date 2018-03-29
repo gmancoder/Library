@@ -1,0 +1,79 @@
+﻿
+@model BookLibrary.Models.ViewModels.ArtistViewModel
+@using BookLibrary.Models
+@{
+    ViewBag.Title = Model.Artist.Name;
+    ViewBag.SubTitle = Html.Raw(Model.Albums.Count() + " Total Albums");
+    ViewBag.PageImage = Model.Artist.DisplayImage;
+    if (Model.Celebrity != null)
+    {
+        ViewBag.Details = Model.Celebrity.Details;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model.AssociatedArtists.Count() > 0)
+{
+    <a id="associatedArtists" name="associatedArtists"></a>
+    <h4>Artists Associated With @Model.Artist.Name</h4>
+     int idx = 0;
+    <div class="row">
+        @foreach (var item in Model.AssociatedArtists.OrderBy(a => a.SortName))
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Artists/Details/@item.Id">
+                    <img src="@item.Image" width="150" title="@item.Name" alt="@item.Name" /><br />
+                    @item.Name
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.Albums.Count() > 0)
+{
+    <a id="albums" name="albums"></a>
+    <h4>@Model.Artist.Name's Albums</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (Album album in Model.Albums)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Albums/Details/@album.Id">
+                    <img src="~/Content/Images/albums/@album.ImageFileName" width="150" title="@album.Title" alt="@album.Title" /><br />
+                    @album.Title
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.NonAlbumTracks.Count() > 0)
+{
+    <a id="tracks" name="tracks"></a>
+    <h4>Tracks by @Model.Artist.Name on other albums</h4>
+    int idx = 0;
+    <div class="row">
+        @foreach (Track track in Model.NonAlbumTracks)
+        {
+            <div class="col-md-2" style="text-align:center;">
+                <img src="~/Content/Images/albums/@track.Album.ImageFileName" width="150" title="@track.Album.Title" alt="@track.Album.Title" /><br />
+                <a href="/Tracks/Details/@track.Id">@track.Name</a> on <a href="/Albums/Details/@track.Album.Id">@track.Album.Title </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+        
+    </div>
+}
+

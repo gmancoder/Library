@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNet.Identity.EntityFramework;
+@model BookLibrary.Models.ViewModels.UpdateRolesViewModel
+@{
+    ViewBag.Title = "Update Roles for " + Model.emailAddress;
+    ViewBag.PageImage = "/Content/images/roles.jpg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(x => x.userId)
+    <div class="form-horizontal">
+        @foreach(IdentityRole role in Model.allRoles)
+        {
+            <div class="form-group">
+                <label for="user_role" class="control-label col-md-2">@role.Name</label>
+                <div class="col-md-10">
+                    @if (Model.userRoles.Where(ur => ur.RoleId == role.Id).Count() > 0)
+                    {
+                    <input type="checkbox" class="sw-checkbox" id="user_role_@role.Id" name="user_role" checked="checked" value="@role.Id" />
+                    }
+                    else
+                    {
+                        <input type="checkbox" class="sw-checkbox" id="user_role_@role.Id" name="user_role" value="@role.Id"/>
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Update" class="btn btn-primary" />
+                    @Html.ActionLink("Cancel", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+                </div>
+            </div>
+        }
+    </div>
+}

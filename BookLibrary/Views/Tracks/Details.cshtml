@@ -1,0 +1,12 @@
+﻿@model BookLibrary.Models.Track
+
+@{
+    ViewBag.Title = Model.Name + " by " + BookLibrary.Functions.Artists.GetArtistName(Model.ArtistId);
+    ViewBag.SubTitle = "Track " + Model.TrackNumber + " on Disc " + Model.DiscNumber + " of <a href='/Albums/Details/" + Model.Album.Id + "'>" + Model.Album.Title + "</a>";
+    ViewBag.PageImage = "/Content/Images/albums/" + Model.Album.ImageFileName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (!String.IsNullOrEmpty(Model.Lyrics))
+{
+@Html.Raw(Model.Lyrics.Replace("\n", "<br />"))
+}

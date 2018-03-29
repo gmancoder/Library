@@ -1,0 +1,89 @@
+﻿@model BookLibrary.Models.Artist
+
+@{
+    ViewBag.Title = "Update Associated Artists";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateAssociated", "Artists", new { Id = Model.Id }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        @foreach (var item in Model.AssociatedArtists)
+        {
+            <div class="col-md-2 associated-artist" style="text-align:center;" id="@item.Id">
+                <input type="hidden" name="artist_id[]" id="artist_id_@item.Id" value="@item.Id" />
+                <img src="@item.Person.DisplayImage" width="150" title="@item.Person.Name" alt="@item.Person.Name" /><br />
+                @item.Person.Name<br />
+                <a href="javascript:;" onclick="RemoveAssociatedArtist('@item.Id');">Remove</a>
+            </div>
+        }
+        <div class="col-md-2 associated-artist" style="text-align:center;" id="associated-add-button">
+            <a href="javascript:;" onclick="AddAssociatedArtist();" class="btn btn-success">Add New</a>
+            <a href="javascript:;" onclick="$(this).parent().parent().parent().submit()" class="btn btn-primary">Complete Update</a>
+        </div>
+    </div>
+}
+<div class="modal fade" id="associatedArtistModal" tabindex="-1" role="dialog" aria-labelledby="associatedArtistModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="max-height:90%;overflow:auto;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="associatedArtistModalLabel">Select Associated Artist</h4>
+            </div>
+            <div class="modal-body">
+                <div id="associatedArtist_modal_loading" style="display:none;">
+                    <img src="~/Content/Images/ajax-loader.gif" alt="Loading" />
+                </div>
+                <div id="associatedArtist_modal_content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong>Get Artists Starting With:</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="javascript:;" onclick="GetAssociatedArtists('A');">A</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('B');">B</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('C');">C</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('D');">D</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('E');">E</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('F');">F</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('G');">G</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('H');">H</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('I');">I</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('J');">J</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('K');">K</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('L');">L</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('M');">M</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('N');">N</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('O');">O</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('P');">P</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('Q');">Q</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('R');">R</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('S');">S</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('T');">T</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('U');">U</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('V');">V</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('W');">W</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('X');">X</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('Y');">Y</a>&nbsp;
+                            <a href="javascript:;" onclick="GetAssociatedArtists('Z');">Z</a>&nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" id="associatedArtists">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>

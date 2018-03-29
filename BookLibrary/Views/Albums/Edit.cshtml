@@ -1,0 +1,151 @@
+﻿@model BookLibrary.Models.Album
+
+@{
+    ViewBag.Title = "Update Album " + Model.Title;
+    ViewBag.PageImage = "/Content/images/add_album.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Albums", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.EntryType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EntryType, new SelectList(
+                    new[]
+                    {
+                        new { Value = "", Text = "" },
+                        new { Value = "Amazon", Text = "Amazon" },
+                        new { Value = "Manual", Text = "Manual" },
+                    },
+                    "Value",
+                    "Text",
+                    Model
+                ), htmlAttributes: new { @class = "form-control", onChange = "EntryTypeChanged();" })
+                @Html.ValidationMessageFor(model => model.EntryType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ArtistId, "ArtistId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ArtistId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ArtistId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="entry_fields" id="amazon_entry_fields" style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ASIN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ASIN, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ASIN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="entry_fields" id="manual_entry_fields" style="display:none;">
+            <div class="form-group">
+                @Html.LabelFor(model => model.NumberOfDiscs, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NumberOfDiscs, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NumberOfDiscs, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UPC, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UPC, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UPC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ReleaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ReleaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ReleaseDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Binding, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Binding, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Binding, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ImageFileName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" id="ImageFileName" name="ImageFileName" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.ImageFileName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Url, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Url, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryTree" class="control-label col-md-2">Categories:</label>
+                <div class="col-md-10" id="category_tree">
+                    <input type="hidden" name="categoryTree" id="categoryTree" />
+                    @Html.Raw(ViewBag.CategoryHtml)
+                </div>
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.CreatedDate)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        EntryTypeChanged();
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#category_tree').on('select_node.jstree', function (e, data) {
+            var id = data.node.a_attr.id
+            var categoryTree = $('#categoryTree').val();
+            if (categoryTree != "") {
+                categoryTree += ",";
+            }
+            categoryTree += id;
+        }).jstree({
+            "core": {
+                "multiple": true,
+                'themes': { 'dots': false }
+            },
+            'plugins': ['changed', 'html_data'],
+
+        });
+    });
+</script>
+

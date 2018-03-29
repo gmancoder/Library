@@ -1,0 +1,35 @@
+﻿@model IEnumerable<BookLibrary.Models.ApplicationRole>
+
+@{
+    ViewBag.Title = "All Roles";
+    ViewBag.PageImage = "/Content/Images/roles.jpg";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table" id="role_table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    <a href="/Roles/Edit/@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+                </td>
+                <td>
+                    @if (item.Users.Count() == 0)
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-xs btn-danger", onClick = "return confirm('Are you sure');" })
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

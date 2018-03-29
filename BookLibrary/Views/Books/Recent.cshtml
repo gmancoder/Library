@@ -1,0 +1,238 @@
+﻿@model BookLibrary.Models.ViewModels.RecentBookViewModel
+@using BookLibrary.Models
+@{
+    ViewBag.Title = "Recently Added Books";
+    ViewBag.SubTitle = ViewBag.TotalItems + " Total Books";
+    ViewBag.PageImage = "/Content/Images/book.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
+@if(Model.Today.Count() > 0)
+{
+    <h3><strong>Today</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var book in Model.Today)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Books/Details/@book.Id">
+                    <img src="~/Content/Images/books/@book.ImageFileName" width="150" title="@book.Title" alt="@book.Title" /><br />
+                    @book.Title
+                </a><br />
+                <span style="color:#999999;">
+                    By
+                    @{ int bidx = 0;}
+                    @foreach (BookAuthor author in book.BookAuthors)
+                    {
+                        if (bidx > 0)
+                        {
+                            if (book.BookAuthors.Count > 2)
+                            {
+                                @:,
+                }
+                            if (bidx == book.BookAuthors.Count - 1)
+                            {
+                                @:and&nbsp;
+                }
+                        }
+                        <a href="/Authors/Detail/@author.AuthorId">@author.AuthorName</a>
+                        bidx += 1;
+                    }
+                </span>
+                
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.Yesterday.Count() > 0)
+{
+    <h3><strong>Yesterday</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var book in Model.Yesterday)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Books/Details/@book.Id">
+                    <img src="~/Content/Images/books/@book.ImageFileName" width="150" title="@book.Title" alt="@book.Title" /><br />
+                    @book.Title<br />
+                    <span style="color:#999999;">
+                        By
+                        @{ int bidx = 0;}
+                        @foreach (BookAuthor author in book.BookAuthors)
+                        {
+                            if (bidx > 0)
+                            {
+                                if (book.BookAuthors.Count > 2)
+                                {
+                                    @:,
+                    }
+                                if (bidx == book.BookAuthors.Count - 1)
+                                {
+                                    @:and&nbsp;
+                    }
+                            }
+                            <a href="/Authors/Detail/@author.AuthorId">@author.AuthorName</a>
+                            bidx += 1;
+                        }
+                    </span>
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.ThisWeek.Count() > 0)
+{
+    <h3><strong>This Week</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var book in Model.ThisWeek)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Books/Details/@book.Id">
+                    <img src="~/Content/Images/books/@book.ImageFileName" width="150" title="@book.Title" alt="@book.Title" /><br />
+                    @book.Title<br />
+                    <span style="color:#999999;">
+                        By
+                        @{ int bidx = 0;}
+                        @foreach (BookAuthor author in book.BookAuthors)
+                        {
+                            if (bidx > 0)
+                            {
+                                if (book.BookAuthors.Count > 2)
+                                {
+                                    @:,
+                    }
+                                if (bidx == book.BookAuthors.Count - 1)
+                                {
+                                    @:and&nbsp;
+                    }
+                            }
+                            <a href="/Authors/Detail/@author.AuthorId">@author.AuthorName</a>
+                            bidx += 1;
+                        }
+                    </span>
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if (Model.LastWeek.Count() > 0)
+{
+    <h3><strong>Last Week</strong></h3>
+    int idx = 0;
+    <div class="row">
+        @foreach (var book in Model.LastWeek)
+        {
+
+            <div class="col-md-2" style="text-align:center;">
+                <a href="/Books/Details/@book.Id">
+                    <img src="~/Content/Images/books/@book.ImageFileName" width="150" title="@book.Title" alt="@book.Title" /><br />
+                    @book.Title<br />
+                    <span style="color:#999999;">
+                        By
+                        @{ int bidx = 0;}
+                        @foreach (BookAuthor author in book.BookAuthors)
+                        {
+                            if (bidx > 0)
+                            {
+                                if (book.BookAuthors.Count > 2)
+                                {
+                                    @:,
+                    }
+                                if (bidx == book.BookAuthors.Count - 1)
+                                {
+                                    @:and&nbsp;
+                    }
+                            }
+                            <a href="/Authors/Detail/@author.AuthorId">@author.AuthorName</a>
+                            bidx += 1;
+                        }
+                    </span>
+                </a>
+            </div>
+            idx += 1;
+            if (idx % 6 == 0)
+            {
+                @:</div><div class="row">
+            }
+        }
+    </div>
+}
+@if(Model.Older.Count() > 0)
+{
+    foreach(KeyValuePair<int, List<Book>> year in Model.Older)
+    {
+        <h3><strong>@year.Key</strong></h3>
+        int idx = 0;
+        <div class="row">
+            @foreach (var book in year.Value)
+            {
+
+                <div class="col-md-2" style="text-align:center;">
+                    <a href="/Books/Details/@book.Id">
+                        <img src="~/Content/Images/books/@book.ImageFileName" width="150" title="@book.Title" alt="@book.Title" /><br />
+                        @book.Title<br />
+                        <span style="color:#999999;">
+                            By
+                            @{ int bidx = 0;}
+                            @foreach (BookAuthor author in book.BookAuthors)
+                            {
+                                if (bidx > 0)
+                                {
+                                    if (book.BookAuthors.Count > 2)
+                                    {
+                                        @:,
+                    }
+                                    if (bidx == book.BookAuthors.Count - 1)
+                                    {
+                                        @:and&nbsp;
+                    }
+                                }
+                                <a href="/Authors/Detail/@author.AuthorId">@author.AuthorName</a>
+                                bidx += 1;
+                            }
+                        </span>
+                    </a>
+                </div>
+                idx += 1;
+                if (idx % 6 == 0)
+                {
+                    @:</div><div class="row">
+                }
+            }
+        </div>
+    }
+}
+<div class="row">
+    <div class="col-md-12 pull-right" style="text-align:right;">
+        @foreach (string page in ViewBag.Pages)
+        {
+            @Html.Raw(page);
+        }
+    </div>
+</div>
